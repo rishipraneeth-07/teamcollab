@@ -1,6 +1,9 @@
 package com.college.teamcollab.controller;
 
+import com.college.teamcollab.dto.auth.AuthResponse;
+import com.college.teamcollab.dto.auth.LoginRequest;
 import com.college.teamcollab.dto.auth.RegisterRequest;
+import com.college.teamcollab.entity.User;
 import com.college.teamcollab.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,12 @@ public class AuthController {
     public ResponseEntity<String> register(@Valid @RequestBody RegisterRequest registerRequest) {
         String message =authService.register(registerRequest);
         return  ResponseEntity.ok(message);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+        AuthResponse authResponse = authService.login(loginRequest);
+        return ResponseEntity.ok(authResponse);
     }
 
 }
