@@ -38,4 +38,21 @@ public class JwtUtil {
                 .getPayload();
         return claims.getSubject();
     }
+
+    public boolean validateToken(String token){
+        try {
+            SecretKey key = Keys.hmacShaKeyFor(
+                    SECRET_KEY.getBytes(StandardCharsets.UTF_8)
+            );
+            Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token);
+
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
+    }
 }
