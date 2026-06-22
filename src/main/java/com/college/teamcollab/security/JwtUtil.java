@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private static final String SECRET_KEY = "qwertyuiopasdfghjklzxcvbnm";
+    private static final String SECRET_KEY = "mySuperSecretJwtKeyForTeamCollabProject2026SpringBoot";
     private static final long EXPIRATION_TIME = 86400000;
     public String generateToken(String email){
         Date now = new Date();
