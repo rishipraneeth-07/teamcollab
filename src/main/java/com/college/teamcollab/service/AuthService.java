@@ -5,19 +5,21 @@ import com.college.teamcollab.dto.auth.LoginRequest;
 import com.college.teamcollab.dto.auth.RegisterRequest;
 import com.college.teamcollab.entity.User;
 import com.college.teamcollab.repo.UserRepository;
+import com.college.teamcollab.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
-    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     public String register(RegisterRequest registerRequest) {
@@ -50,8 +52,11 @@ public class AuthService {
             throw new IllegalArgumentException("Wrong password");
         }
 
+        String token = jwtUtil.generateToken(user.getEmail());
+
+
         return AuthResponse.builder()
-                .token("dummy-token")
+                .token(token)
                 .message("Login successful")
                 .build();
     }
