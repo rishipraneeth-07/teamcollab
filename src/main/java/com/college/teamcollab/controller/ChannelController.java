@@ -2,15 +2,13 @@ package com.college.teamcollab.controller;
 
 import com.college.teamcollab.dto.channel.ChannelResponse;
 import com.college.teamcollab.dto.channel.CreateChannelRequest;
+import com.college.teamcollab.dto.channel.UpdateChannelRequest;
 import com.college.teamcollab.service.ChannelService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/channels")
@@ -30,5 +28,12 @@ public class ChannelController {
 
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ChannelResponse> updateChannel(
+            @Valid @RequestBody UpdateChannelRequest request,@PathVariable Long id){
+
+        return ResponseEntity.ok(channelService.updateChannel(id, request)
+        );
+    }
 
 }
