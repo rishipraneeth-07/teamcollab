@@ -54,4 +54,10 @@ public class ChannelController {
         return  ResponseEntity.ok(channelService.getAllChannels(pageable));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<Page<ChannelResponse>>
+    searchChannels(@RequestParam String keyword, Pageable pageable){
+        return  ResponseEntity.ok(channelService.searchChannels(keyword, pageable));
+    }
+
 }
