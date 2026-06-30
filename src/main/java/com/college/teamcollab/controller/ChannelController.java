@@ -36,4 +36,10 @@ public class ChannelController {
         );
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteChannel(@PathVariable Long id){
+        channelService.deleteChannel(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
