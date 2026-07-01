@@ -46,7 +46,7 @@ public class ChannelController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ChannelResponse> getChannel(@PathVariable Long id){
-        return ResponseEntity.ok(channelService.getChannelById(id))
+        return ResponseEntity.ok(channelService.getChannelById(id));
     }
 
     @GetMapping
