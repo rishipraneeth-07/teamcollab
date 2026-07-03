@@ -14,5 +14,5 @@ public class MemberResponse {
     private Long id;
     private String username;
     private ChannelRole role;
-    private LocalDateTime joinAt;
+    private LocalDateTime joinedAt;
 }
