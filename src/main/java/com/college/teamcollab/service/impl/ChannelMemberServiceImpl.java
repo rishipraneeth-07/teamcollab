@@ -76,6 +76,16 @@ public class ChannelMemberServiceImpl implements ChannelMemberService {
 
     @Override
     public void leaveChannel(Long channelId) {
+        Channel channel = findChannelById(channelId);
+        User user = getCurrentUser();
+        ChannelMember member=findMembership(channel,user);
+        if(member.getRole() == ChannelRole.OWNER){
+            throw new IllegalArgumentException(
+                    "Channel owner cannot leave"
+            );
+
+        }
+        channelMemberRepository.delete(member);
 
     }
 
