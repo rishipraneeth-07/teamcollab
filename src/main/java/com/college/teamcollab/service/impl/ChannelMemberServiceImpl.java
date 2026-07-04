@@ -91,7 +91,12 @@ public class ChannelMemberServiceImpl implements ChannelMemberService {
 
     @Override
     public List<MemberResponse> getMembers(Long channelId) {
-        return List.of();
+        Channel channel = findChannelById(channelId);
+        List<ChannelMember> members = channelMemberRepository.findByChannel(channel);
+
+        return members.stream()
+                .map(ChannelMemberMapper::toResponse)
+                .toList();
     }
 
 }
