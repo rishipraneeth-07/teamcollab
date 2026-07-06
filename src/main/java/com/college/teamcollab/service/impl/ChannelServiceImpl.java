@@ -3,13 +3,12 @@ package com.college.teamcollab.service.impl;
 import com.college.teamcollab.dto.channel.ChannelResponse;
 import com.college.teamcollab.dto.channel.CreateChannelRequest;
 import com.college.teamcollab.dto.channel.UpdateChannelRequest;
-import com.college.teamcollab.entity.Channel;
-import com.college.teamcollab.entity.Role;
-import com.college.teamcollab.entity.User;
+import com.college.teamcollab.entity.*;
 import com.college.teamcollab.exception.ChannelAlreadyExistsException;
 import com.college.teamcollab.exception.ChannelNotFoundException;
 import com.college.teamcollab.exception.UnauthorizedChannelAccessException;
 import com.college.teamcollab.mapper.ChannelMapper;
+import com.college.teamcollab.repo.ChannelMemberRepository;
 import com.college.teamcollab.repo.ChannelRepository;
 import com.college.teamcollab.repo.UserRepository;
 import com.college.teamcollab.service.ChannelService;
@@ -26,6 +25,7 @@ public class ChannelServiceImpl implements ChannelService {
 
     private final ChannelRepository channelRepository;
     private final UserRepository userRepository;
+    private final ChannelMemberRepository channelMemberRepository;
 
     private User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -60,18 +60,33 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public ChannelResponse createChannel(CreateChannelRequest request) {
+
         String name = request.getName().trim();
+
         if (channelRepository.existsByName(name)) {
             throw new ChannelAlreadyExistsException(
-                    "Channel already exists");
+                    "Channel already exists"
+            );
         }
+
+        User currentUser = getCurrentUser();
 
         Channel channel = Channel.builder()
                 .name(name)
                 .description(request.getDescription())
-                .createdBy(getCurrentUser())
+                .createdBy(currentUser)
                 .build();
+
         channel = channelRepository.save(channel);
+
+        ChannelMember member = ChannelMember.builder()
+                .channel(channel)
+                .user(currentUser)
+                .role(ChannelRole.OWNER)
+                .build();
+
+        channelMemberRepository.save(member);
+
         return ChannelMapper.toResponse(channel);
     }
 
