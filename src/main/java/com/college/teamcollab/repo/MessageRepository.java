@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    Page<Message> findByChannelOrderByCreatedAtDesc(Channel channel,Pageable pageable);
+    Page<Message> findByChannelOrderByCreatedAtAsc(Channel channel,Pageable pageable);
 
     }
 

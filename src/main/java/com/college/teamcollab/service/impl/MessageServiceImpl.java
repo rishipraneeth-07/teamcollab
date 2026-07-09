@@ -102,9 +102,17 @@ public class MessageServiceImpl implements MessageService {
         }
         messageRepository.delete(message);
     }
-
     @Override
     public Page<MessageResponse> getMessages(Long channelId, Pageable pageable) {
-        return null;
+        Channel channel = findChannelById(channelId);
+        User currentUser = getCurrentUser();
+        if (!channelMemberRepository.existsByChannelAndUser(channel, currentUser)) {
+            throw new UnauthorizedChannelAccessException(
+                    "You are not a member of this channel"
+            );
+        }
+        Page<Message> messages = messageRepository.findByChannelOrderByCreatedAtAsc(channel, pageable);
+        return messages.map(MessageMapper::toResponse);
+
     }
 }
