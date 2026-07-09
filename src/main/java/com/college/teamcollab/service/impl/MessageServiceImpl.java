@@ -63,10 +63,23 @@ public class MessageServiceImpl implements MessageService {
         return MessageMapper.toResponse(message);
     }
 
+    private Message findMessageById(Long id) {
+        return messageRepository.findById(id).orElseThrow(
+                ()->new RuntimeException("Message not found with id: " + id)
+        );
+
+    }
+
     @Override
     public MessageResponse updateMessage(Long messageId, UpdateMessageRequest request) {
-
-        return null;
+        Message message=findMessageById(messageId);
+        User currentUser = getCurrentUser();
+        if(!message.getSender().equals(currentUser)) {
+            throw new UnauthorizedChannelAccessException("You can only edit your own message");
+        }
+        message.setContent(request.getContent());
+        message=messageRepository.save(message);
+        return MessageMapper.toResponse(message);
     }
 
 
