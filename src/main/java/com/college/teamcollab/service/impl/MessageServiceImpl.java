@@ -3,9 +3,7 @@ package com.college.teamcollab.service.impl;
 import com.college.teamcollab.dto.message.CreateMessageRequest;
 import com.college.teamcollab.dto.message.MessageResponse;
 import com.college.teamcollab.dto.message.UpdateMessageRequest;
-import com.college.teamcollab.entity.Channel;
-import com.college.teamcollab.entity.Message;
-import com.college.teamcollab.entity.User;
+import com.college.teamcollab.entity.*;
 import com.college.teamcollab.exception.ChannelNotFoundException;
 import com.college.teamcollab.exception.UnauthorizedChannelAccessException;
 import com.college.teamcollab.mapper.MessageMapper;
@@ -82,10 +80,27 @@ public class MessageServiceImpl implements MessageService {
         return MessageMapper.toResponse(message);
     }
 
+    private boolean isChannelOwner(Channel channel, User user){
+        ChannelMember member =
+                channelMemberRepository
+                        .findByChannelAndUser(channel, user)
+                        .orElse(null);
+
+        return member != null &&
+                member.getRole() == ChannelRole.OWNER;
+    }
+
 
     @Override
     public void deleteMessage(Long messageId) {
-
+        Message message=findMessageById(messageId);
+        User currentUser = getCurrentUser();
+        boolean isSender = message.getSender().getId().equals(currentUser.getId());
+        boolean isOwner = isChannelOwner(message.getChannel(),currentUser);
+        if (!isSender && !isOwner) {
+            throw new UnauthorizedChannelAccessException("You are not authorized to delete this message");
+        }
+        messageRepository.delete(message);
     }
 
     @Override
