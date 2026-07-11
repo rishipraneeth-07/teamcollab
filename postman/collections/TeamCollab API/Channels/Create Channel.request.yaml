@@ -1,0 +1,17 @@
+$kind: http-request
+name: Create Channel
+url: "{{baseUrl}}/api/channels"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"backend\",\r
+
+    \    \"description\": \"Backend development discussions\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
