@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Postman
+.postman/
+postman/environments/
+postman/globals/
+postman/flows/
+postman/mocks/
+postman/specs/
