@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     Page<Message> findByChannelOrderByCreatedAtAsc(Channel channel,Pageable pageable);
-
+    void deleteByChannel(Channel channel);
     }
 

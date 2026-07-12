@@ -10,8 +10,10 @@ import com.college.teamcollab.exception.UnauthorizedChannelAccessException;
 import com.college.teamcollab.mapper.ChannelMapper;
 import com.college.teamcollab.repo.ChannelMemberRepository;
 import com.college.teamcollab.repo.ChannelRepository;
+import com.college.teamcollab.repo.MessageRepository;
 import com.college.teamcollab.repo.UserRepository;
 import com.college.teamcollab.service.ChannelService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,7 @@ public class ChannelServiceImpl implements ChannelService {
     private final ChannelRepository channelRepository;
     private final UserRepository userRepository;
     private final ChannelMemberRepository channelMemberRepository;
+    private final MessageRepository messageRepository;
 
     private User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -109,9 +112,12 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
+    @Transactional
     public void deleteChannel(Long channelId) {
         Channel channel = findChannelById(channelId);
         validateOwnership(channel);
+        messageRepository.deleteByChannel(channel);
+        channelMemberRepository.deleteByChannel(channel);
         channelRepository.delete(channel);
     }
 
