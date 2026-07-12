@@ -1,4 +1,9 @@
 $kind: http-request
-url: ""
+name: Get Channels
+url: "{{baseUrl}}/api/channels"
 method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
 order: 1243416507711487

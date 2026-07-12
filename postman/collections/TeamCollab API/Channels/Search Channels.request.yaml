@@ -1,0 +1,11 @@
+$kind: http-request
+name: Search Channels
+url: "{{baseUrl}}/api/channels/search?keyword=back"
+method: GET
+queryParams:
+  keyword: back
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
+order: 3534534666616831
