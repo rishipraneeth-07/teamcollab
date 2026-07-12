@@ -1,4 +1,18 @@
 $kind: http-request
-url: ""
-method: GET
+name: Update Channel
+url: "{{baseUrl}}/api/channels/1"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"name\": \"backend-team\",\r
+
+    \    \"description\": \"Updated backend discussion channel\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
 order: 2101180713926655
