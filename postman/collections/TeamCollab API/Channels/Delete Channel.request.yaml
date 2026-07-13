@@ -1,4 +1,12 @@
 $kind: http-request
-url: ""
-method: GET
+name: Delete Channel
+url: "{{baseUrl}}/api/channels/2"
+method: DELETE
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{token}}"
 order: 228289153073151
