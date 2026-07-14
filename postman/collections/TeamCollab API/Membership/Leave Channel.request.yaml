@@ -1,0 +1,10 @@
+$kind: http-request
+name: Leave Channel
+description: ""
+url: http://localhost:8080/api/channels/1/leave
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{token1}}"
+order: 3684500243480575
