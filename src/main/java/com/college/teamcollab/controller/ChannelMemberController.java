@@ -1,8 +1,11 @@
 package com.college.teamcollab.controller;
 
+import com.college.teamcollab.dto.channel.ChannelResponse;
 import com.college.teamcollab.dto.member.MemberResponse;
 import com.college.teamcollab.service.ChannelMemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +32,15 @@ public class ChannelMemberController {
     @GetMapping("/{id}/members")
     public ResponseEntity<List<MemberResponse>> getMembers(@PathVariable Long id) {
         return ResponseEntity.ok(channelMemberService.getMembers(id)
+        );
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Page<ChannelResponse>> getMyChannels(
+            Pageable pageable
+    ) {
+        return ResponseEntity.ok(
+                channelMemberService.getMyChannels(pageable)
         );
     }
 }

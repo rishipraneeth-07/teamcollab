@@ -1,18 +1,22 @@
 package com.college.teamcollab.service.impl;
 
 
+import com.college.teamcollab.dto.channel.ChannelResponse;
 import com.college.teamcollab.dto.member.MemberResponse;
 import com.college.teamcollab.entity.Channel;
 import com.college.teamcollab.entity.ChannelMember;
 import com.college.teamcollab.entity.ChannelRole;
 import com.college.teamcollab.entity.User;
 import com.college.teamcollab.exception.ChannelNotFoundException;
+import com.college.teamcollab.mapper.ChannelMapper;
 import com.college.teamcollab.mapper.ChannelMemberMapper;
 import com.college.teamcollab.repo.ChannelMemberRepository;
 import com.college.teamcollab.repo.ChannelRepository;
 import com.college.teamcollab.repo.UserRepository;
 import com.college.teamcollab.service.ChannelMemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -97,6 +101,17 @@ public class ChannelMemberServiceImpl implements ChannelMemberService {
         return members.stream()
                 .map(ChannelMemberMapper::toResponse)
                 .toList();
+    }
+
+    @Override
+    public Page<ChannelResponse> getMyChannels(Pageable pageable) {
+
+        User currentUser = getCurrentUser();
+
+        return channelMemberRepository
+                .findByUser(currentUser, pageable)
+                .map(ChannelMember::getChannel)
+                .map(ChannelMapper::toResponse);
     }
 
 }
