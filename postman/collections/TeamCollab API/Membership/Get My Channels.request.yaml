@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get My Channels
+description: ""
+url: "{{baseUrl}}/api/channels/me"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{token1}}"
+order: 980849583456255
