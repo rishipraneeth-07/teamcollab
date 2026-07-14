@@ -7,9 +7,9 @@ body:
   type: json
   content: "{\r
 
-    \  \"username\": \"testuser\",\r
+    \  \"username\": \"testuser1\",\r
 
-    \  \"email\": \"testuser@gmail.com\",\r
+    \  \"email\": \"testuser1@gmail.com\",\r
 
     \  \"password\": \"Password@123\"\r
 

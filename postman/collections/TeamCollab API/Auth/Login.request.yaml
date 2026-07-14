@@ -6,11 +6,13 @@ body:
   type: json
   content: "{\r
 
-    \  \"email\": \"testuser@gmail.com\",\r
+    \  \"email\": \"testuser1@gmail.com\",\r
 
     \  \"password\": \"Password@123\"\r
 
     }"
+auth:
+  type: noauth
 scripts:
   - type: beforeRequest
     code: ""

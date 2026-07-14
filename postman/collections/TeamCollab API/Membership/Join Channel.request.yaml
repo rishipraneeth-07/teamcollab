@@ -1,0 +1,11 @@
+$kind: http-request
+name: Join Channel
+url: "{{baseUrl}}/api/channels/1/join"
+method: POST
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{token1}}"
