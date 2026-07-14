@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get Members
+description: ""
+url: "{{baseUrl}}/api/channels/1/members"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{token1}}"
+order: 695646256365567
