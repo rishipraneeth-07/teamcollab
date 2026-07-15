@@ -1,0 +1,16 @@
+$kind: http-request
+name: Send Message
+description: ""
+url: "{{baseUrl}}/api/channels/1/messages"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"content\": \"Hello Team!\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token2}}"

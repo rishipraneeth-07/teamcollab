@@ -8,4 +8,4 @@ body:
 auth:
   type: bearer
   credentials:
-    token: "{{token1}}"
+    token: "{{token2}}"
