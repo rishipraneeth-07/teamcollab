@@ -1,0 +1,10 @@
+$kind: http-request
+name: Delete Message
+description: ""
+url: "{{baseUrl}}/api/messages/1"
+method: DELETE
+auth:
+  type: bearer
+  credentials:
+    token: "{{token2}}"
+order: 4025463264509951
