@@ -1,0 +1,17 @@
+$kind: http-request
+name: Update Message
+description: ""
+url: " {{baseUrl}}/api/messages/1"
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"content\": \"Hello Team! (edited)\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{token2}}"
+order: 1840466476662783
