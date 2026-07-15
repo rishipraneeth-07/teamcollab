@@ -1,0 +1,10 @@
+$kind: http-request
+name: Get Messages
+description: ""
+url: " {{baseUrl}}/api/channels/1/messages"
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{token2}}"
+order: 2226354809470975
