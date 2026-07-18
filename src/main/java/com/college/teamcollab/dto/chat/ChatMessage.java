@@ -1,4 +1,4 @@
-package com.college.teamcollab.dto.message;
+package com.college.teamcollab.dto.chat;
 
 import lombok.*;
 
