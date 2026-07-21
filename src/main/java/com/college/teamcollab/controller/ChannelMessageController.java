@@ -19,10 +19,15 @@ public class ChannelMessageController {
     @PostMapping("/{channelId}/messages")
     public ResponseEntity<MessageResponse> sendMessage(
             @PathVariable Long channelId,
-            @Valid @RequestBody CreateMessageRequest request) {
+            @Valid @RequestBody CreateMessageRequest request,
+            java.security.Principal principal) {
 
         return ResponseEntity.ok(
-                messageService.sendMessage(channelId, request)
+                messageService.sendMessage(
+                        principal.getName(),
+                        channelId,
+                        request
+                )
         );
     }
 
