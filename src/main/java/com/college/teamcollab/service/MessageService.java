@@ -7,9 +7,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface MessageService {
-    MessageResponse sendMessage(Long channelId, CreateMessageRequest request);
-    MessageResponse updateMessage(Long messageId, UpdateMessageRequest request);
-    void deleteMessage(Long messageId);
-    Page<MessageResponse> getMessages(Long channelId,Pageable pageable);
 
+    MessageResponse sendMessage(
+            String email,
+            Long channelId,
+            CreateMessageRequest request
+    );
+
+    MessageResponse updateMessage(
+            Long messageId,
+            UpdateMessageRequest request
+    );
+
+    void deleteMessage(Long messageId);
+
+    Page<MessageResponse> getMessages(
+            Long channelId,
+            Pageable pageable
+    );
 }
